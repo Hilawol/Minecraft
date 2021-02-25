@@ -6,19 +6,41 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./css/style.css">
+
   <title>Minecraft</title>
+  <link rel="shortcut icon" href="./img/fvicon.png" type="image/gif" sizes="16x16">
 </head>
 
 <body>
-  <section class="gamePage">
-    <div class="inventoryDiv">
-      <div class="inventoryBox treeTopBox"><span class="invevtoryBox-cnt">8</span></div>
-      <div class="inventoryBox treeLogBox"><span class="invevtoryBox-cnt">4</span></div>
-      <div class="inventoryBox rockBox"><span class="invevtoryBox-cnt">4</span></div>
-      <div class="inventoryBox dirtBox"><span class="invevtoryBox-cnt">30</span></div>
-    </div>
-    <div class="gameMatrix">
 
+  <section class="gamePage">
+    <div class="container">
+      <div class="inventoryDiv boxContainer">
+        <div class="inventoryBox treeTopBox" name="treeTop"><span class="invevtoryBox-cnt">8</span></div>
+        <div class="inventoryBox treeLogBox" name="treeLog"><span class="invevtoryBox-cnt">4</span></div>
+        <div class="inventoryBox rockBox" name="rock"><span class="invevtoryBox-cnt">4</span></div>
+        <div class="inventoryBox dirtBox" name="dirt"><span class="invevtoryBox-cnt">30</span></div>
+      </div>
+      <div class="decImage"></div>
+    </div>
+
+    <div class="container">
+      <div class="gameMatrix">
+      </div>
+      <div class="toolDiv boxContainer">
+        <div>
+          <div class="tool axe" name="axe"></div>
+          <div class="tool pickaxe" name="pickaxe"></div>
+          <div class="tool shovel" name="shovel"></div>
+        </div>
+        <div class="btns">
+          <button class="reset btn">Reset World</button>
+          <button class="quit btn">Quit</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
     </div>
   </section>
   <script src="./app.js"></script>
