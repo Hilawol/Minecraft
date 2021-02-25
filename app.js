@@ -79,10 +79,10 @@ const buildWorld = () => {
       pixel.classList.add("pixel");
       pixel.addEventListener("click", doOnClick);
       if (row == dirtTop) {
-        pixel.classList.add("dirtTopBox");
+        pixel.classList.add("dirtTop");
       }
       if (row > dirtStart) {//dirt
-        pixel.classList.add("dirtBox");
+        pixel.classList.add("dirt");
       }
       pixel.classList.add("sky");
       matrixDiv.appendChild(pixel);

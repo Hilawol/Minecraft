@@ -136,24 +136,24 @@ html {
   background-color: #80abff;
 }
 
-.treeTopBox {
+.treeTop {
   background: url("/img/treetop.jpg") center center/cover;
 }
 
-.treeLogBox {
+.treeLog {
   background: url("/img/treeLog.jpeg") center center/cover;
 }
 
-.rockBox {
+.rock {
   background: url("/img/rock.jpg") center center/cover;
 }
 
-.dirtBox {
+.dirt {
   background: url("/img/dirt.jpg") center/cover;
   opacity: 0.6;
 }
 
-.dirtTopBox {
+.dirtTop {
   background: url("/img/dirtTop.png");
 }
 
