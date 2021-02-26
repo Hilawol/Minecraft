@@ -19,37 +19,32 @@ html {
   box-shadow: 7px 8px 15px 2px #8e8e8e;
   background: url("/img/bg-wool-white.png");
 }
+
 /* Holds the inventory boxes */
 .inventoryDiv {
-  width: 95vw;
+  width: 100vw;
   /* max-width: 1000px; */
-  justify-content: flex-end;
-  padding: 0 1rem;
+  justify-content: space-between;
+  padding-left: 1rem;
 }
 
 .toolDiv {
   flex-flow: column;
   justify-content: space-evenly;
-}
-
-.btns {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-  align-items: center;
+  width: 10rem;
 }
 
 .btn {
   margin: 1rem 0;
   display: block;
-  width: 9rem;
+  width: 8rem;
   height: 4rem;
   border: 2px solid #8e8e8e;
   box-shadow: 7px 8px 15px 2px #8e8e8e;
   outline: none;
   cursor: pointer;
 }
-.inventoryBox {
+.tile {
   height: 8rem;
   width: 8rem;
   display: flex;
@@ -58,6 +53,10 @@ html {
   margin: 0.5rem;
 }
 
+.inventoryDiv .boxContainer,
+.toolDiv {
+  box-shadow: none;
+}
 .inventoryBox:hover,
 .tool:hover,
 .btn:hover {
@@ -86,7 +85,7 @@ html {
   cursor: unset;
 }
 
-.invevtoryBox-cnt {
+.counter {
   font-size: 4rem;
   color: azure;
 }
@@ -96,12 +95,13 @@ html {
 
 .tool {
   height: 8rem;
-  width: 10rem;
+  width: 8rem;
   margin-bottom: 1rem;
 }
 
 .selectedTool,
-.selectedTile {
+.selectedTile,
+.selected {
   border: 2px solid #8e8e8e;
   box-shadow: 7px 2px 25px 2px #04cdf1;
 }
@@ -110,6 +110,12 @@ html {
   display: flex;
   justify-content: center;
 }
+
+.col {
+  flex-direction: column;
+  align-items: center;
+}
+
 .gameMatrix {
   width: 95vw;
   /* max-width: 1000px; */
@@ -124,6 +130,7 @@ html {
 .pixel {
   width: 100%;
   height: 100%;
+  background-color: #0271b3;
 }
 
 .pixel:hover {
@@ -133,28 +140,27 @@ html {
 /* ------------------------------------ Tiles --------------------------------- */
 
 .sky {
-  background-color: #80abff;
+  background-color: #0271b3;
 }
 
 .treeTop {
-  background: url("/img/treetop.jpg") center center/cover;
+  background: url("/img/treetop.jpg") no-repeat center center/cover;
 }
 
 .treeLog {
-  background: url("/img/treeLog.jpeg") center center/cover;
+  background: url("/img/treeLog.jpeg") no-repeat center center/cover;
 }
 
 .rock {
-  background: url("/img/rock.jpg") center center/cover;
+  background: url("/img/rock.jpg") no-repeat center center/cover;
 }
 
 .dirt {
-  background: url("/img/dirt.jpg") center/cover;
-  opacity: 0.6;
+  background: url("/img/dirt.jpg") no-repeat center center/cover;
 }
 
 .dirtTop {
-  background: url("/img/dirtTop.png");
+  background: url("/img/dirtTop.png") no-repeat center center/cover;
 }
 
 /* ------------------------------- Tools ----------------------------------- */
@@ -169,6 +175,13 @@ html {
 
 .shovel {
   background: url("/img/shovel.png") no-repeat center center/contain;
+}
+
+.logo {
+  background: url("/img/logo.png") no-repeat center center/contain;
+  width: 30rem;
+  height: 8rem;
+  align-self: center;
 }
 
 .decImage {
