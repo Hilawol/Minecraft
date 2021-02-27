@@ -51,6 +51,13 @@ html {
   justify-content: flex-end;
   align-items: flex-end;
   margin: 0.5rem;
+  cursor: pointer;
+}
+
+/* If a tile is not available to remove by current tool,
+ *  it will be displayed unavilable */
+.tile.unavailable span {
+  display: none;
 }
 
 .inventoryDiv .boxContainer,
@@ -59,7 +66,8 @@ html {
 }
 .inventoryBox:hover,
 .tool:hover,
-.btn:hover {
+.btn:hover,
+.tile:hover {
   border: 2px solid #8e8e8e;
   box-shadow: 7px 8px 15px 2px #8e8e8e;
   animation-name: floating;
@@ -97,6 +105,7 @@ html {
   height: 8rem;
   width: 8rem;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .selectedTool,
@@ -138,6 +147,11 @@ html {
 }
 
 /* ------------------------------------ Tiles --------------------------------- */
+
+.unavailable {
+  opacity: 0.2;
+  cursor: unset;
+}
 
 .sky {
   background-color: #0271b3;

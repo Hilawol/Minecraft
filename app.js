@@ -17,12 +17,11 @@ let gameState = {
 let currentState;
 const tools = []; //Holds all type of tools names and id's.
 const tiles = [];
-// const counters = [];
+
 
 const resetBtn = document.querySelector(".reset");
 resetBtn.addEventListener("click", () => window.location.reload());
 
-const setAllowedTiles = () => {};
 
 /**
  *  Removes the class: className from element. 
@@ -54,13 +53,36 @@ const setSelectedElement = (type, element) => {
   console.log("current state:" + currentState);
 };
 
+const setUnavilableTiles = () => {
+   //first removes previous tiles selected as unavailable
+  let removeUnavailable = document.querySelectorAll(".unavailable");
+  removeUnavailable.forEach(tile => removeClass("unavailable", tile));
+
+  tiles.forEach(tile =>{
+   if(!selectedTool.allow.find(t => t === tile.name)){ //if current tile is not allowed by current selected tool make it unavailable
+     document.querySelector(`.${tile.name}`).classList.add("unavailable");
+   }
+  })
+};
+
+
+
+// ----------------------------------- Game Events ------------------------//
+
+/**
+ *  callback faction for click on tool in the tool div
+ */
 const clickOnTool = (e) => {
   currentState=gameState.remove;
   removeClass("selected");
   setSelectedElement("tool", e.currentTarget);
-  setAllowedTiles(); //TODO setAllowedTiles
+  setUnavilableTiles(); //TODO setAllowedTiles
 };
 
+
+/**
+ *  callback faction for click on tile in the inventorty div
+ */
 const clickOnTile = (e) => {
   currentState=gameState.add;
   removeClass("selected");
@@ -68,10 +90,9 @@ const clickOnTile = (e) => {
 };
 
 /**
- * 
- * The event listener callback faction for each cell in matrix
+ *  callback faction for click on each cell in matrix
  */
-function doOnClick(e) {
+function clickOnCell(e) {
   console.log(e.currentTarget.dataset);
   if (currentState === gameState.remove) {
     removeTile(e.currentTarget);
@@ -80,6 +101,9 @@ function doOnClick(e) {
     addTile(e.currentTarget);
   }
 }
+
+
+
 
 const toolTypes = document.querySelectorAll(".tool");
 const createTools = (toolTypes) => {
@@ -95,7 +119,7 @@ const createTools = (toolTypes) => {
 createTools(toolTypes);
 
 /**
- * Define for tools[] which tile it can remove
+ * Define the tools[] which tile it can remove
  */
 const setAllowedToRemove = () => {
   tools.forEach(tool =>{
@@ -105,7 +129,6 @@ const setAllowedToRemove = () => {
         break;
       case "pickaxe":
         tool.allow=["rock"];
-        break;
         break;
       case "shovel":
         tool.allow=["dirt","dirtTop"];
@@ -138,12 +161,25 @@ const updateCounter = (type) => {
     tiles[type.id].count;
 };
 
+const isAllowed =(tile)=>{
+  let unavailables = document.querySelectorAll(".unavailable");
+  let allowed = true;
+  unavailables.forEach(u =>{
+    if (getTileType(u).name=== getTileType(tile).name){
+      allowed = false;
+    }
+  })
+  return allowed;
+}
+
 const removeTile = (tile) => {
   let type = getTileType(tile);
-  if (type) {
+  if (type){
+   if(isAllowed(tile)) {
     //if type is undefined the tile is "sky" and can't br removed
     removeClass(type.name, tile);
     updateCounter(type);
+    }
   }
 };
 
@@ -158,8 +194,8 @@ const addTile = (tile)=>{
   }
 }
 
-const getTileType = (selectedTile) =>
-  tiles.find((tile) => selectedTile.classList.contains(tile.name));
+const getTileType = (tile) => tiles.find((t) => tile.classList.contains(t.name));
+  
 
 const getCell = (col,row)=>{
   let elements = document.querySelector(".pixel");
@@ -172,7 +208,7 @@ const buildWorld = () => {
       pixel.setAttribute("data-col", col);
       pixel.setAttribute("data-row", row);
       pixel.classList.add("pixel");
-      pixel.addEventListener("click", doOnClick);
+      pixel.addEventListener("click", clickOnCell);
       if (row == dirtTop) {
         pixel.classList.add("dirtTop");
       } else if (row > dirtStart) {
