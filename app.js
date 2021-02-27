@@ -14,13 +14,21 @@ let gameState = {
   remove: 0,
   add: 1,
 };
+
 let currentState;
+let darkMode=false;
+
 const tools = []; //Holds all type of tools names and id's.
 const tiles = [];
 
-
+const darkBtn = document.querySelector(".darkBtn");
 const resetBtn = document.querySelector(".reset");
+
 resetBtn.addEventListener("click", () => window.location.reload());
+darkBtn.addEventListener("click",changeGameMode);
+
+
+//------------------------- Utility Functions------------------------------
 
 
 /**
@@ -46,7 +54,10 @@ const removeClass = (className, element = null) => {
  * @param {an html elemnt} element 
  */
 const addClass = (id,element)=> {
- if (!(id === 'x')){
+  if(id=="s"){
+    element.classList.add("sun");
+  }
+  else if (!(id === 'x')){
    element.classList.add((tiles.find(t => t.id === id)).name);
  }
 }
@@ -59,8 +70,6 @@ const setSelectedElement = (type, element) => {
     selectedTile = tiles.find((tile) => tile.name === name);
   }
   element.classList.add("selected");
-  console.log("selected:" + name);
-  console.log("current state:" + currentState);
 };
 
 const setUnavilableTiles = () => {
@@ -104,7 +113,6 @@ const clickOnTile = (e) => {
  *  callback faction for click on each cell in matrix
  */
 function clickOnCell(e) {
-  console.log(e.currentTarget.dataset);
   if (currentState === gameState.remove) {
     removeTile(e.currentTarget);
   }
@@ -113,6 +121,29 @@ function clickOnCell(e) {
   }
 }
 
+/**
+ * Change between dark/light mode
+ */
+function changeGameMode(){
+  let cells = document.querySelectorAll(".cell");
+  if(darkMode){
+    removeClass("dark");
+    let moon = document.querySelectorAll(".moon");
+    moon.forEach(m=>{
+      m.classList.remove("moon");
+    })
+    darkBtn.textContent="Dark Mode";
+  }
+  else{
+    let sun = document.querySelectorAll(".sun");
+    sun.forEach(s=>{
+      s.classList.add("moon");
+    })
+    cells.forEach(c=>c.classList.add("dark"));
+    darkBtn.textContent="Light Mode";
+  }
+  darkMode=!darkMode;
+}
 
 
 
@@ -144,11 +175,13 @@ const setAllowedToRemove = () => {
       case "shovel":
         tool.allow=["dirt","dirtTop"];
         break;
+      case "wind":
+        tool.allow=["cloud"]  ;
+        break;
     }
   })
 };
 setAllowedToRemove();
-console.log(tools);
 
 const tileTypes = document.querySelectorAll(".tile");
 const createTiles = (tileTypes) => {
@@ -163,7 +196,6 @@ const createTiles = (tileTypes) => {
   });
 };
 createTiles(tileTypes);
-console.log(tiles);
 
 const updateCounter = (type) => {
   currentState === gameState.remove? tiles[type.id].count += 1:
@@ -201,17 +233,11 @@ const addTile = (tile)=>{
       tile.classList.add(selectedTile.name);
       updateCounter(selectedTile);
     }
-    console.log("tile is sky",tile);
   }
 }
 
 const getTileType = (tile) => tiles.find((t) => tile.classList.contains(t.name));
   
-
-const getCell = (col,row)=>{
-  let elements = document.querySelector(".pixel");
-
-} 
 
 const createWorldMatrix = (rows,cols)=>{
   let matrix=[]
@@ -243,13 +269,14 @@ const drawWorld=(matrix)=>{
   }
 }
 
-// drawWorld(createWorldMatrix(25,35));
-
 let stone = [["x","x",2,"x","x"],
              ["x",2,2,2,"x"],
             [2,2,2,2,2]];
 
-let tree = [["x","x",0,0,"x","x"],
+let stone2 = [["x",2,2,2,"x"],
+           [2,2,2,2,2]];
+
+let tree1 = [["x","x",0,0,"x","x"],
             ["x",0,0,0,0,"x"],
             ["x",0,0,0,0,"x"],
               [0,0,0,0,0,0],
@@ -258,8 +285,30 @@ let tree = [["x","x",0,0,"x","x"],
               ["x","x",1,1,"x","x"],
               ["x","x",1,1,"x","x"],
               ["x","x",1,1,"x","x"],
-              ["x","x",1,1,"x","x"]
-          ]
+              ["x","x",1,1,"x","x"]];
+
+let tree2 = [["x","x",0,0,"x","x"],
+            ["x",0,0,0,0,"x"],
+            ["x",0,0,0,0,"x"],
+              [0,0,0,0,0,0],
+              ["x",0,0,0,0,"x"],
+              ["x","x",0,0,"x","x"],
+              ["x","x",1,1,"x","x"],
+              ["x","x",1,1,"x","x"],];
+
+let cloud1 = [["x","x",5,5,5,5,"x","x"],
+             ["x",5,5,5,5,5,5,"x"],
+             [5,5,5,5,5,5,5,5],
+             ["x","x",5,5,5,5,"x","x"]];
+
+let cloud2 = [["x",5,5,5,5,"x"],
+             [5,5,5,5,5,5],
+             ["x",5,5,5,5,"x"]];
+
+let sun = [["s","s","s"],
+          ["s","s","s"],
+          ["s","s","s"]];
+
 
 const addPaternToWorld=(matrix,pattern,loc)=>{
   for (let row=0;row<pattern.length;row++){
@@ -269,6 +318,13 @@ const addPaternToWorld=(matrix,pattern,loc)=>{
   }
   return matrix;
 }
-let matrix1  = addPaternToWorld(createWorldMatrix(25,35),stone,{row:dirtTop-3, col:5});
-matrix1=addPaternToWorld(matrix1,tree,{row:7,col:12});
+let matrix1  = createWorldMatrix(25,35);
+
+matrix1= addPaternToWorld(matrix1,stone,{row:dirtTop-3, col:5});
+matrix1= addPaternToWorld(matrix1,stone2,{row:dirtTop-2, col:28});
+matrix1=addPaternToWorld(matrix1,tree1,{row:7,col:12});
+matrix1=addPaternToWorld(matrix1,cloud1,{row:2,col:2});
+matrix1=addPaternToWorld(matrix1,cloud2,{row:2,col:20});
+matrix1=addPaternToWorld(matrix1,sun,{row:1,col:30});
+matrix1=addPaternToWorld(matrix1,tree2,{row:9,col:20});
 drawWorld(matrix1);
