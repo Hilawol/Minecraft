@@ -34,12 +34,22 @@ const removeClass = (className, element = null) => {
     }
   }
   else{
-    let s = document.querySelector(`.${className}`);
-    if (s) {
-      s.classList.remove(className);
-    }
+    let selected = document.querySelectorAll(`.${className}`);
+    selected.forEach(s=> s.classList.remove(className));
   }
 };
+
+/**
+ * Adds the class name that matches the id according the tiles array. 
+ * if id='x' does not add a class because it is sky
+ * @param {x if sky, number if tile} id 
+ * @param {an html elemnt} element 
+ */
+const addClass = (id,element)=> {
+ if (!(id === 'x')){
+   element.classList.add((tiles.find(t => t.id === id)).name);
+ }
+}
 
 const setSelectedElement = (type, element) => {
   let name = element.getAttribute("name");
@@ -76,7 +86,7 @@ const clickOnTool = (e) => {
   currentState=gameState.remove;
   removeClass("selected");
   setSelectedElement("tool", e.currentTarget);
-  setUnavilableTiles(); //TODO setAllowedTiles
+  setUnavilableTiles(); 
 };
 
 
@@ -86,6 +96,7 @@ const clickOnTool = (e) => {
 const clickOnTile = (e) => {
   currentState=gameState.add;
   removeClass("selected");
+  removeClass("unavailable"); //to show all inventories
   setSelectedElement("tile", e.currentTarget);
 };
 
@@ -201,22 +212,63 @@ const getCell = (col,row)=>{
   let elements = document.querySelector(".pixel");
 
 } 
-const buildWorld = () => {
-  for (let row = 0; row < 25; row++) {
-    for (let col = 0; col < 35; col++) {
-      let pixel = document.createElement("div");
-      pixel.setAttribute("data-col", col);
-      pixel.setAttribute("data-row", row);
-      pixel.classList.add("pixel");
-      pixel.addEventListener("click", clickOnCell);
-      if (row == dirtTop) {
-        pixel.classList.add("dirtTop");
-      } else if (row > dirtStart) {
-        pixel.classList.add("dirt");
-      }
-      matrixDiv.appendChild(pixel);
+
+const createWorldMatrix = (rows,cols)=>{
+  let matrix=[]
+  for (let row=0;row<rows;row++){
+    let r=[];
+    for (let col=0;col<cols;col++){
+      if (row === dirtTop) {
+        r.push((tiles.find(t=>t.name === "dirtTop")).id)
+      }else if (row>dirtTop){
+        r.push((tiles.find(t=>t.name === "dirt")).id)
+      } else r.push('x');
+    }
+    matrix.push(r);
+  }
+  return matrix;
+}
+
+const drawWorld=(matrix)=>{
+  for (let row = 0; row < matrix.length; row++) {
+        for (let col = 0; col < matrix[0].length; col++) {
+          let cell = document.createElement("div");
+          cell.setAttribute("data-col", col);
+          cell.setAttribute("data-row", row);
+          cell.classList.add("cell");
+          cell.addEventListener("click", clickOnCell);
+          addClass(matrix[row][col],cell);
+          matrixDiv.appendChild(cell);
+        }
+  }
+}
+
+// drawWorld(createWorldMatrix(25,35));
+
+let stone = [["x","x",2,"x","x"],
+             ["x",2,2,2,"x"],
+            [2,2,2,2,2]];
+
+let tree = [["x","x",0,0,"x","x"],
+            ["x",0,0,0,0,"x"],
+            ["x",0,0,0,0,"x"],
+              [0,0,0,0,0,0],
+              [0,0,0,0,0,0],
+              ["x",0,0,0,0,"x"],
+              ["x","x",1,1,"x","x"],
+              ["x","x",1,1,"x","x"],
+              ["x","x",1,1,"x","x"],
+              ["x","x",1,1,"x","x"]
+          ]
+
+const addPaternToWorld=(matrix,pattern,loc)=>{
+  for (let row=0;row<pattern.length;row++){
+    for (let col=0;col<pattern[0].length;col++){
+      matrix[row+loc.row][col+loc.col]=pattern[row][col];
     }
   }
-};
-buildWorld();
-
+  return matrix;
+}
+let matrix1  = addPaternToWorld(createWorldMatrix(25,35),stone,{row:dirtTop-3, col:5});
+matrix1=addPaternToWorld(matrix1,tree,{row:7,col:12});
+drawWorld(matrix1);
