@@ -312,6 +312,10 @@ h1 {
   h1 {
     font-size: 2rem;
   }
+  .logo {
+    height: 4rem;
+    width: 15rem;
+  }
 }
 
 @media all and (max-width: 959px) and (orientation: landscape) {
@@ -333,6 +337,10 @@ h1 {
   h1 {
     font-size: 2rem;
   }
+  .logo {
+    height: 4rem;
+    width: 15rem;
+  }
 }
 
 @media all and (max-width: 680px) and (orientation: portrait) {
@@ -344,6 +352,10 @@ h1 {
   }
   .counter {
     font-size: 1rem;
+  }
+  .logo {
+    height: 4rem;
+    width: 15rem;
   }
 }
 
@@ -362,6 +374,6 @@ h1 {
 
   .logo {
     height: 4rem;
-    width: 20rem;
+    width: 15rem;
   }
 }
