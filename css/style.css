@@ -359,4 +359,9 @@ h1 {
   .counter {
     font-size: 2rem;
   }
+
+  .logo {
+    height: 4rem;
+    width: 20rem;
+  }
 }
