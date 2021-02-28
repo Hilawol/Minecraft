@@ -9,7 +9,6 @@
 html {
   font-size: 10px;
   font-family: "Noto Sans JP", sans-serif;
-  /* overflow: hidden; */
 }
 
 /* -------------------------landingPage--------------------- */
@@ -19,7 +18,6 @@ html {
   height: 100vh;
   color: whitesmoke;
   background: url("/img/explore.png") no-repeat center center/cover;
-  /* overflow: hidden; */
 }
 
 .wellcomeMsg {
@@ -319,6 +317,10 @@ h1 {
     height: 4rem;
     width: 15rem;
   }
+  .btn {
+    height: 3rem;
+    width: 6rem;
+  }
 }
 
 @media all and (max-width: 959px) and (orientation: landscape) {
@@ -347,6 +349,10 @@ h1 {
     height: 4rem;
     width: 15rem;
   }
+  .btn {
+    height: 3rem;
+    width: 6rem;
+  }
 }
 
 @media all and (max-width: 680px) and (orientation: portrait) {
@@ -362,6 +368,10 @@ h1 {
   .logo {
     height: 4rem;
     width: 15rem;
+  }
+  .btn {
+    height: 3rem;
+    width: 6rem;
   }
 }
 
@@ -381,5 +391,10 @@ h1 {
   .logo {
     height: 4rem;
     width: 15rem;
+  }
+
+  .btn {
+    height: 3rem;
+    width: 6rem;
   }
 }
