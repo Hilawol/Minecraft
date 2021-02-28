@@ -9,17 +9,17 @@
 html {
   font-size: 10px;
   font-family: "Noto Sans JP", sans-serif;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 /* -------------------------landingPage--------------------- */
 
 #landingPage {
-  width: 100vw;
+  width: 99vw;
   height: 100vh;
   color: whitesmoke;
   background: url("/img/explore.png") no-repeat center center/cover;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .wellcomeMsg {
@@ -54,10 +54,13 @@ html {
 
 h1 {
   font-size: 5rem;
+  text-align: center;
 }
 
 /* -------------------------Main Game Page--------------------- */
 #gamePage {
+  width: 99vw;
+  height: 100vh;
   background: url("/img/bg-dark.png");
 }
 
@@ -69,8 +72,7 @@ h1 {
 
 /* Holds the inventory boxes */
 .inventoryDiv {
-  width: 100vw;
-  /* max-width: 1000px; */
+  width: 99vw;
   justify-content: space-between;
   padding-left: 1rem;
 }
@@ -174,7 +176,6 @@ h1 {
 
 .gameMatrix {
   width: 95vw;
-  /* max-width: 1000px; */
   height: 88vh;
   max-height: 1000px;
   background-color: darkgray;
@@ -269,6 +270,93 @@ h1 {
 
 .decImage {
   background: url("/img/bg-wool-white.png");
-  /* background: url("/img/download.jpeg") no-repeat center center/cover; */
   width: 10rem;
+}
+
+.landscape {
+  width: 99vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("/img/rotate1.jpeg") no-repeat center center/contain;
+  color: whitesmoke;
+  font-size: 2rem;
+  text-align: center;
+  display: none;
+}
+
+.landscape h2 {
+  background-color: black;
+  opacity: 0.8;
+}
+
+/*----------------------------------- Media Queries ---------------------------*/
+
+@media all and (max-width: 959px) and (orientation: portrait) {
+  .landscape {
+    display: block;
+  }
+
+  html {
+    font-size: 10px;
+  }
+  .tool {
+    height: 4rem;
+    width: 4rem;
+  }
+  .tile {
+    height: 4rem;
+    width: 4rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media all and (max-width: 959px) and (orientation: landscape) {
+  .landscape {
+    display: none;
+  }
+
+  html {
+    font-size: 10px;
+  }
+  .tool {
+    height: 4rem;
+    width: 4rem;
+  }
+  .tile {
+    height: 4rem;
+    width: 4rem;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+@media all and (max-width: 680px) and (orientation: portrait) {
+  html {
+    font-size: 8px;
+  }
+  .landscape {
+    display: block;
+  }
+  .counter {
+    font-size: 1rem;
+  }
+}
+
+@media all and (max-width: 680px) and (orientation: landscape) {
+  .landscape {
+    display: none;
+  }
+
+  html {
+    font-size: 8px;
+  }
+
+  .counter {
+    font-size: 2rem;
+  }
 }

@@ -132,7 +132,7 @@ function changeGameMode(){
     moon.forEach(m=>{
       m.classList.remove("moon");
     })
-    darkBtn.textContent="Dark Mode";
+    darkBtn.textContent="Dark";
   }
   else{
     let sun = document.querySelectorAll(".sun");
@@ -140,7 +140,7 @@ function changeGameMode(){
       s.classList.add("moon");
     })
     cells.forEach(c=>c.classList.add("dark"));
-    darkBtn.textContent="Light Mode";
+    darkBtn.textContent="Light";
   }
   darkMode=!darkMode;
 }
